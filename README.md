@@ -36,6 +36,8 @@ That said, we'd like you to cut some corners so we can focus on certain aspects 
 
 That's it. Commit your solution to the provided GitHub repository (this one) and submit the solution using the Greenhouse link we emailed you. When you come in, we'll pair with you and walk through your solution and extend it in an interesting way.
 
+
+
 My solution:
 
 The input is a single threaded data stream - if the server can't catch up to the single threaded stream then you lag behind the stream and may never catch up again. One process is responsible for reading data, but a multi-threaded queue is responsible for writing to SQL server. The data source is the data stream. The data sink is the SQL database. Downstream of the database I've used Flask to surface the results. 
