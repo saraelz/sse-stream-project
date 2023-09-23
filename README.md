@@ -24,16 +24,32 @@ My source is the data stream. The data sink is the SQL database. Downstream of t
 
 The input is a single threaded data stream - if the server can't catch up to the single threaded stream then you lag behind the stream and may never catch up again. One process is responsible for reading data, but a multi-threaded queue is responsible for writing to SQL server. 
 
+Running the Project
 
-How to run this file:
+This project is developed using Python version 3.11.
 
-This project is written in Python using version 3.11.
+First, ensure that you have the latest version of pip by running:
 
-First, you can upgrade pip if you run python.exe -m pip install --upgrade pip. Now, if you run python3 -m pip install -r requirements.txt, it will install the specified packages, including sseclient.
+bash
 
-You can run pytest test_app.py or specific test functions such as pytest test_app.py::test_exams
+python.exe -m pip install --upgrade pip
 
-Since it's a Flask application which I also tested with Postman, I used the following terminal commands:
+Then, install the necessary packages, including sseclient, by executing:
+
+bash
+
+python3 -m pip install -r requirements.txt
+
+You can run tests using pytest:
+
+bash
+
+pytest test_app.py
+
+For a Flask application that has been tested with Postman, follow these terminal commands:
+
+bash
+
 python3 -m venv myenv
 # Activate the virtual environment (on Windows)
 myenv\Scripts\activate
@@ -46,64 +62,38 @@ python3 -m pip install -r requirements.txt
 python3 app.py
 python3 listener.py
 
-
 You need three applications running:
 (1) app.py
 (2) listener.py
-(3) postgres
+(3) PostgreSQL
+Additional Commands
 
+To view HTTP request headers, you can use the following command:
 
-Show the headers for the http request:
-curl -i https://live-test-scores.herokuapp.com/scores 
+bash
 
-inside the consumer function, queue.get() is going to just wait until the producer puts something inside the queue. while true: if queue is empty then wait
+curl -i https://live-test-scores.herokuapp.com/scores
 
-three proceses fighting over messages in queue based on availability
-when one consumer picks up data from the queue, it gets deleted from the queue
+Within the consumer function, queue.get() waits until the producer adds something to the queue. It continues processing data as long as the queue is not empty.
 
-make sure consumer doesn't die 
-try 
-print
-if consumer fails it wont share error
+Three processes compete for messages in the queue based on availability. When one consumer picks up data from the queue, it is removed from the queue.
 
-add if json = {}
-then print error
+The Big O complexity is O(n), where n is the number of events. For each event, an SQL operation is performed.
 
-test - 
-make queue
-fake some data
-see how consumer reacts
+Limitations
 
-big o is the number of events O(n) where n is the number of events. in an event do operation sql
+    The program can lag behind the data source if there is an excessive amount of data. This can be mitigated by adding more consumers.
 
-postgres is usually running away from application in real life
+    Vertical scaling (upgrading hardware) can help if the server cannot keep up with the data source.
 
-Limitation - my program can lag behind the source - we improve it by having more consumers but 
+    Horizontal scaling (adding more servers) can be beneficial for handling large data volumes.
 
-1. what if theres so much data that my server isn't keeping up at the data source
-2. not enough consumers
-3. everything on one node
+Data recovery is not possible in the event of a node failure. Distributed systems like Apache Spark offer solutions for distributed data processing.
 
-Limitations - 
-vertical scaling - throw money - buy a better computer with more CPU that runs functions faster and supports more processes - a better computer can run more processes
-horizontal scaling - more computers to do the same job
-what happens when this one node goes down? multi distributed system like Spark might have some horizontal scaling options
-we have one producer, multiple consumers
-no way to recover lost data if the node goes down
-Spark might try to answer distributed system and multiple consumers and producers and they wouldn't exist on one server it would be multiple servers.
+Consider implementing a distributed system with multiple nodes for enhanced scalability and fault tolerance.
 
+To view HTTP request headers, you can use the following command:
 
-Since it's a Flask application which I also tested with Postman, I used the following terminal commands:
-python3 -m venv myenv
-# Activate the virtual environment (on Windows)
-myenv\Scripts\activate
-# Activate the virtual environment (on macOS/Linux)
-# source myenv/bin/activate
-# Install packages
-python.exe -m pip install --upgrade pip
-python3 -m pip install -r requirements.txt
-# Run Flask application 
-python3 app.py
+bash
 
-Show the headers for the http request:
-curl -i https://live-test-scores.herokuapp.com/scores 
+curl -i https://live-test-scores.herokuapp.com/scores
