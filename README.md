@@ -26,6 +26,34 @@ The input is a single threaded data stream - if the server can't catch up to the
 
 Running the Project:
 
+You need three applications running:
+(1) app.py
+(2) listener.py
+(3) PostgreSQL
+Additional Commands
+
+Within the consumer function, queue.get() waits until the producer adds something to the queue. It continues processing data as long as the queue is not empty.
+
+Three processes compete for messages in the queue based on availability. When one consumer picks up data from the queue, it is removed from the queue.
+
+The Big O complexity is O(n), where n is the number of events. For each event, an SQL operation is performed.
+
+Limitations
+* The program can lag behind the data source if there is an excessive amount of data. This can be mitigated by adding more consumers.
+
+Solutions:
+
+* Vertical scaling (upgrading hardware) can help if the server cannot keep up with the data source.
+
+* Horizontal scaling (adding more servers) can be beneficial for handling large data volumes.
+
+* Data recovery is not possible in the event of a node failure. Distributed systems like Apache Spark offer solutions for distributed data processing with horizonatal scaling.
+
+Consider implementing a distributed system with multiple nodes for enhanced scalability and fault tolerance.
+
+How to run:
+
+
 
 To view HTTP request headers, you can use the following command:
 
@@ -69,33 +97,3 @@ python3 -m pip install -r requirements.txt
 python3 app.py
 python3 listener.py
 
-You need three applications running:
-(1) app.py
-(2) listener.py
-(3) PostgreSQL
-Additional Commands
-
-To view HTTP request headers, you can use the following command:
-
-bash
-
-curl -i https://live-test-scores.herokuapp.com/scores
-
-Within the consumer function, queue.get() waits until the producer adds something to the queue. It continues processing data as long as the queue is not empty.
-
-Three processes compete for messages in the queue based on availability. When one consumer picks up data from the queue, it is removed from the queue.
-
-The Big O complexity is O(n), where n is the number of events. For each event, an SQL operation is performed.
-
-Limitations
-* The program can lag behind the data source if there is an excessive amount of data. This can be mitigated by adding more consumers.
-
-Solutions:
-
-* Vertical scaling (upgrading hardware) can help if the server cannot keep up with the data source.
-
-* Horizontal scaling (adding more servers) can be beneficial for handling large data volumes.
-
-* Data recovery is not possible in the event of a node failure. Distributed systems like Apache Spark offer solutions for distributed data processing with horizonatal scaling.
-
-Consider implementing a distributed system with multiple nodes for enhanced scalability and fault tolerance.
