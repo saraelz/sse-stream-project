@@ -20,9 +20,9 @@ Your job is to build an application that consumes this data, processes it, and s
 
 My solution:
 
-My source is the data stream. The data sink is the SQL database. Downstream of the database we can use Flask to surface the results.
+* My source is the data stream. The data sink is the SQL database. Downstream of the database we can use Flask to surface the results.
 
-The input is a single threaded data stream - if the server can't catch up to the single threaded stream then you lag behind the stream and may never catch up again. One process is responsible for reading data, but a multi-threaded queue is responsible for writing to SQL server. 
+* The input is a single threaded data stream - if the server can't catch up to the single threaded stream then you lag behind the stream and may never catch up again. One process is responsible for reading data, but a multi-threaded queue is responsible for writing to SQL server. 
 
 Running the Project:
 
@@ -32,11 +32,11 @@ You need three applications running:
 (3) PostgreSQL
 Additional Commands
 
-Within the consumer function, queue.get() waits until the producer adds something to the queue. It continues processing data as long as the queue is not empty.
+* Within the consumer function, queue.get() waits until the producer adds something to the queue. It continues processing data as long as the queue is not empty.
 
-Three processes compete for messages in the queue based on availability. When one consumer picks up data from the queue, it is removed from the queue.
+* Three processes compete for messages in the queue based on availability. When one consumer picks up data from the queue, it is removed from the queue.
 
-The Big O complexity is O(n), where n is the number of events. For each event, an SQL operation is performed.
+* The Big O complexity is O(n), where n is the number of events. For each event, an SQL operation is performed.
 
 Limitations
 * The program can lag behind the data source if there is an excessive amount of data. This can be mitigated by adding more consumers.
