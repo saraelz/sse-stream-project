@@ -24,7 +24,14 @@ My source is the data stream. The data sink is the SQL database. Downstream of t
 
 The input is a single threaded data stream - if the server can't catch up to the single threaded stream then you lag behind the stream and may never catch up again. One process is responsible for reading data, but a multi-threaded queue is responsible for writing to SQL server. 
 
-Running the Project
+Running the Project:
+
+
+To view HTTP request headers, you can use the following command:
+
+bash
+
+curl -i https://live-test-scores.herokuapp.com/scores
 
 This project is developed using Python version 3.11.
 
@@ -81,19 +88,14 @@ Three processes compete for messages in the queue based on availability. When on
 The Big O complexity is O(n), where n is the number of events. For each event, an SQL operation is performed.
 
 Limitations
+* The program can lag behind the data source if there is an excessive amount of data. This can be mitigated by adding more consumers.
 
-    The program can lag behind the data source if there is an excessive amount of data. This can be mitigated by adding more consumers.
+Solutions:
 
-    Vertical scaling (upgrading hardware) can help if the server cannot keep up with the data source.
+* Vertical scaling (upgrading hardware) can help if the server cannot keep up with the data source.
 
-    Horizontal scaling (adding more servers) can be beneficial for handling large data volumes.
+* Horizontal scaling (adding more servers) can be beneficial for handling large data volumes.
 
-Data recovery is not possible in the event of a node failure. Distributed systems like Apache Spark offer solutions for distributed data processing.
+* Data recovery is not possible in the event of a node failure. Distributed systems like Apache Spark offer solutions for distributed data processing with horizonatal scaling.
 
 Consider implementing a distributed system with multiple nodes for enhanced scalability and fault tolerance.
-
-To view HTTP request headers, you can use the following command:
-
-bash
-
-curl -i https://live-test-scores.herokuapp.com/scores
