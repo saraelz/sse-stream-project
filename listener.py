@@ -8,7 +8,7 @@ import multiprocessing
 from dataclasses import dataclass
 
 NUM_CONSUMERS = 3
-DELETE_TABLE_QUERY = 'DROP TABLE IF EXISTS scores;'
+DELETE_TABLE_QUERY = '''DROP TABLE IF EXISTS scores;'''
 CREATE_TABLE_QUERY = '''
     CREATE TABLE scores (
         id SERIAL PRIMARY KEY,
@@ -42,7 +42,6 @@ with conn.cursor() as cursor:
     cursor.execute(DELETE_TABLE_QUERY)
     cursor.execute(CREATE_TABLE_QUERY)
     conn.commit()
-cursor.close()
 
 
 def producer(queue: multiprocessing.Queue):
@@ -62,15 +61,15 @@ def consumer(queue: multiprocessing.Queue, consumer_id: str):
         try:
             if raw_event.event == 'score':
                 parsed_data = json.loads(raw_event.raw_data)
-                insert_into_scores_table(parsed_data)
+                insert_score_data(parsed_data)
         except Exception as error:
             # handle the exception
             print(raw_event.raw_data)
             print('An exception occurred: ', error)
 
 
-def insert_into_scores_table(scores_dict):
-    # insert data into PostgreSQL
+def insert_score_data(scores_dict):
+    """Insert data into PostgreSQL"""
     if scores_dict and isinstance(scores_dict, dict):
         with conn.cursor() as cursor:
             cursor.execute('''

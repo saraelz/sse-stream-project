@@ -13,17 +13,18 @@ myenv\Scripts\activate
 # Install packages
 python.exe -m pip install --upgrade pip
 python3 -m pip install -r requirements.txt
-# Run Flask application 
+# Run applications in separate tabs and leave them open
 python3 app.py
+python3 listener.py
 
 
-You need three applications running 
-(1)
-(2)
+You need three applications running:
+(1) app.py
+(2) listener.py
 (3) postgres
 
 
 Show the headers for the http request:
 curl -i https://live-test-scores.herokuapp.com/scores 
 
-The input is a single threaded data stream - if the server can't catch up to the single threaded stream then you lag behind the stream and may never catch up again. One process is responsible for reading data, but multiple multi-threaded queue are responsible for writing to SQL server. My source is the data stream. The data sink is the SQL database. Downstream of the database I've used Flask to surface the results.
+The data source is the data stream. The data sink is the SQL database. Downstream of the database I've used Flask to surface the results. The input is a single threaded data stream - if the server can't catch up to the single threaded stream then you lag behind the stream and may never catch up again. One process is responsible for reading data, but a multi-threaded queue is responsible for writing to SQL server. 
