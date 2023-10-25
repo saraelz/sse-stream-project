@@ -30,6 +30,7 @@ You need three applications running:
 (1) app.py
 (2) listener.py
 (3) PostgreSQL
+
 Additional Commands
 
 * Within the consumer function, queue.get() waits until the producer adds something to the queue. It continues processing data as long as the queue is not empty.
@@ -47,53 +48,52 @@ Solutions:
 
 * Horizontal scaling (adding more servers) can be beneficial for handling large data volumes.
 
-* Data recovery is not possible in the event of a node failure. Distributed systems like Apache Spark offer solutions for distributed data processing with horizonatal scaling.
-
-Consider implementing a distributed system with multiple nodes for enhanced scalability and fault tolerance.
+* Data recovery is not possible in the event of a node failure. Distributed systems like Apache Spark offer solutions for distributed data processing with horizonatal scaling. I would consider implementing a distributed system with multiple nodes for enhanced scalability and fault tolerance.
 
 How to run:
 
-
-
-To view HTTP request headers, you can use the following command:
-
-bash
-
-curl -i https://live-test-scores.herokuapp.com/scores
+You need to install PostgreSQL, C++, and py. Add the directory for pg_config and pip to your PATH env file.
 
 This project is developed using Python version 3.11.
 
+To view HTTP request headers, you can use the following command:
+
+```
+curl -i https://live-test-scores.herokuapp.com/scores
+```
+
+
 First, ensure that you have the latest version of pip by running:
 
-bash
-
+```
 python.exe -m pip install --upgrade pip
+```
 
 Then, install the necessary packages, including sseclient, by executing:
 
-bash
-
-python3 -m pip install -r requirements.txt
+```
+py -m pip install -r requirements.txt
+```
 
 You can run tests using pytest:
-
-bash
-
+ 
+```
 pytest test_app.py
+```
 
-For a Flask application that has been tested with Postman, follow these terminal commands:
+For running the code in a virtual environment, follow these terminal commands:
 
-bash
-
-python3 -m venv myenv
+```
 # Activate the virtual environment (on Windows)
 myenv\Scripts\activate
 # Activate the virtual environment (on macOS/Linux)
 # source myenv/bin/activate
 # Install packages
 python.exe -m pip install --upgrade pip
-python3 -m pip install -r requirements.txt
-# Run applications in separate tabs and leave them open
-python3 app.py
-python3 listener.py
+py -m pip install -r requirements.txt
 
+You should run the following applications in separate tabs and leave them open:
+```
+py app.py
+py listener.py
+```
