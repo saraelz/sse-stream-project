@@ -93,7 +93,7 @@ python.exe -m pip install --upgrade pip
 py -m pip install -r requirements.txt
 ```
 
-You should run the following applications in separate tabs and leave them open:
+You should run the following applications in separate tabs in the terminal and leave them open:
 ```
 py app.py
 py listener.py
