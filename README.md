@@ -52,7 +52,7 @@ Solutions:
 
 How to run:
 
-You need to install PostgreSQL, C++, and py. Add the directory for pg_config and pip to your PATH env file.
+You need to install PostgreSQL, C++, and Python. Add the directory for pg_config and pip to your PATH env file.
 
 This project is developed using Python version 3.11.
 
@@ -91,6 +91,7 @@ myenv\Scripts\activate
 # Install packages
 python.exe -m pip install --upgrade pip
 py -m pip install -r requirements.txt
+```
 
 You should run the following applications in separate tabs and leave them open:
 ```
