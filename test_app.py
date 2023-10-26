@@ -29,8 +29,7 @@ def db_connection():
 
 
 def test_index(client):
-    """Test the / endpoint.
-    If this fails, try to run listener.py"""
+    """Test the / endpoint."""
     response = client.get('/')
     assert response.status_code == 200
     data = json.loads(response.data.decode('utf-8'))
@@ -94,6 +93,7 @@ def test_exam_results(client, db_connection):
 
 
 def test_queue_is_represented(client):
+    """Test n events from the sse-stream"""
     n_events = 5
     URL = 'https://live-test-scores.herokuapp.com/scores'
     response = requests.get(URL, stream=True)
