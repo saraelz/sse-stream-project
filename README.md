@@ -17,7 +17,7 @@ This represents that student foo received a score of `.991` on exam #3.
 
 My solution:
 
-* If the server can't catch up to the single threaded stream then you lag behind the stream and may never catch up again. I wrote one process which is responsible for reading data, but a multi-threaded queue is responsible for writing to SQL server.
+* If the server can't catch up to the single threaded stream then you lag behind the stream and may never catch up again. I wrote one process which is responsible for reading data, but a different process - a multi-threaded queue - is responsible for writing to SQL server.
 * I will build a data pipeline. The input is a single threaded data stream. Then, the source for the data pipeline that is the data stream. The data sink is the SQL database. Downstream of the database, we will include a Flask file to surface the results.
 
 
