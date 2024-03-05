@@ -12,23 +12,7 @@ Periodically, you'll receive a JSON payload that represents a student's test sco
 
 This represents that student foo received a score of `.991` on exam #3. 
 
-Your job is to build an application that consumes this data, processes it, and stores it efficiently such that the data can be queried for various purposes.
-
-Code
-Issues
-Pull requests
-Actions
-Projects
-Wiki
-Security
-Insights
-
-    Settings
-
-Breadcrumbs
-
-    sse-stream-p
-
+My purpose is to build an application that consumes this data, processes it, and stores it efficiently such that the data can be queried for various purposes.
 
 
 My solution:
