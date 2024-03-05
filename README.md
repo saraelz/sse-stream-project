@@ -1,4 +1,4 @@
-## Storing Server Sent Events arriving from a Stream of SSEs
+## A Simple Data Pipeline for a Stream of Server Sent Events
 
 
 At `https://live-test-scores.herokuapp.com/scores` you'll find a service that follows the [Server-Sent Events](https://html.spec.whatwg.org/multipage/server-sent-events.html#server-sent-events) protocol. You can connect to the service using cURL:
