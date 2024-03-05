@@ -1,4 +1,4 @@
-## Coding test
+## Storing Server Sent Events arriving from a Stream of SSEs
 
 
 At `https://live-test-scores.herokuapp.com/scores` you'll find a service that follows the [Server-Sent Events](https://html.spec.whatwg.org/multipage/server-sent-events.html#server-sent-events) protocol. You can connect to the service using cURL:
@@ -12,9 +12,22 @@ Periodically, you'll receive a JSON payload that represents a student's test sco
 
 This represents that student foo received a score of `.991` on exam #3. 
 
-Your job is to build an application that consumes this data, processes it, and stores it efficiently such that the data can be queried for various purposes. 
+Your job is to build an application that consumes this data, processes it, and stores it efficiently such that the data can be queried for various purposes.
 
-* You don't need to worry about the “ops” aspects of deploying your service — load balancing, high availability, deploying to a cloud provider, etc. won't be necessary.
+Code
+Issues
+Pull requests
+Actions
+Projects
+Wiki
+Security
+Insights
+
+    Settings
+
+Breadcrumbs
+
+    sse-stream-p
 
 
 
